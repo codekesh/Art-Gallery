@@ -1,13 +1,242 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.navbar {
+  display: flex;
+  background-color: #D0006E;
+  height: 90px;
+  align-items: center;
+  padding-left: 50px;
+  z-index: 100;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar img {
+  height: 70px;
+  border-radius: 100%;
+}
+
+.nav-title {
+  position: relative;
+  left: 38%;
+  color: white;
+  font-weight: 600;
+}
+
+.nav-title span {
+  font-size: 20px;
+  margin-right: 35px;
+}
+
+button {
+  height: 45px;
+  width: 127px;
+  border-radius: 23px;
+  font-size: 20px;
+  border: none;
+  margin-left: 15px;
+  font-weight: 600;
+}
+
+.navbar button {
+  color: #D0006E;
+}
+
+.header img {
+  width: 100%;
+}
+
+.shops {
+  height: 400px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.shops::before {
+  content: "";
+  background: url('./components/images/background-3616101_1920.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.8;
+
+}
+
+.contents {
+  width: 40%;
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 50px;
+}
+
+.contents h1 {
+  font-size: 40px;
+  color: #D0006E;
+}
+
+.contents p {
+  margin-top: 20px;
+  font-size: 28px;
+  color: rgb(248, 6, 6);
+  font-weight: 600;
+}
+
+.contents button {
+  margin-top: 40px;
+  width: 150px;
+  color: #ffff;
+  background-color: #D0006E;
+}
+
+.donation {
+  width: 25%;
+  box-shadow: 0px 0px 15px 0px #888888;
+  border-radius: 36px;
+  text-align: center;
+  height: 150px;
+  padding: 10px 0px;
+  position: absolute;
+  left: 37.5%;
+  bottom: -35.5rem;
+  z-index: 2;
+  background-color: #ffff;
+}
+
+.donation h3 {
+  margin: 10px 0px 8px 0px;
+}
+
+.donation p {
+  margin-bottom: 10px;
+}
+
+.donation button {
+  background-color: #D0006E;
+  color: #ffff;
+}
+
+.left-side {
+  margin-top: 30px;
+  margin-left: 10%;
+}
+
+footer {
+  background-color: rgba(0, 0, 0, 0.865);
+  display: flex;
+  position: relative;
+  z-index: 1;
+}
+
+footer img {
+  margin-top: 50px;
+  height: 80px;
+  border-radius: 100%;
+}
+
+.footer-links {
+  margin: 40px 0px;
+  display: flex;
+}
+
+.footer-links div {
+  margin-right: 60px;
+}
+
+.footer-links h3 {
+  color: #ffff;
+  margin-bottom: 20px;
+}
+
+.footer-links p {
+  color: #c9c9c9;
+  margin-bottom: 5px;
+}
+
+.right-side {
+  margin-top: 80px;
+  position: relative;
+  left: 12%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+}
+
+.form h2 {
+  margin-bottom: 20px;
+  color: #ffff;
+}
+
+.form input {
+  margin-bottom: 20px;
+  background-color: transparent;
+  height: 30px;
+  font-size: 20px;
+}
+
+.form button {
+  background-color: #D0006E;
+  color: white;
+  margin-top: 20px;
+}
+
+.icons {
+  margin: 60px 0px;
+}
+
+.fa-brands {
+  margin-right: 40px;
+  height: 50px;
+  color: white;
+}
+
+.copy {
+  padding: 50px 0px 10px;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.865);
+}
+
+.copy {
+  padding: 50px 0px 10px;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.865);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D0006E;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e02a8b;
+  transition-duration: 0.3s;
 }
