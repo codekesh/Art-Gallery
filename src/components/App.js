@@ -5,13 +5,15 @@ import Shops from './Shops'
 import Donation from './Donation'
 import Footer from './Footer'
 import Copyright from './Copyright'
+import Sponsors from './Sponsors'
 const App = () => {
   return (
     <div>
       <Navbar />
       <Header />
       <Shops />
-      <Donation />
+      <Sponsors/>
+      {/* <Donation /> */}
       <Footer />
       <Copyright />
     </div>
