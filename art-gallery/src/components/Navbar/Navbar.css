@@ -1,0 +1,36 @@
+.navbar {
+    display: flex;
+    background-color: #D0006E;
+    height: 90px;
+    align-items: center;
+    padding-left: 50px;
+    z-index: 100;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar img {
+    height: 70px;
+    border-radius: 100%;
+}
+
+.nav-title {
+    position: relative;
+    left: 35%;
+}
+
+.nav-link {
+    font-size: 20px;
+    margin-right: 35px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+
+.navbar button {
+    color: #D0006E;
+}
