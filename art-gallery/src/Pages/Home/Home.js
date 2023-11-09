@@ -4,6 +4,7 @@ import Copyright from '../../components/Copyright/Copyright'
 import Sponsor from '../../components/Sponsor/Sponsor'
 import './Home.css'
 import { Button } from '@mui/material'
+import { useAuth } from '../../context/AuthProvider.js'
 
 const Home = () => {
     const head_img = require('../../images/Homes/fantasy-2506830.jpg')
@@ -12,11 +13,14 @@ const Home = () => {
     const clct_img = require('../../images/Homes/collection.jpg')
     const news_img = require('../../images/Homes/collection.jpg')
     const own_img1 = require('../../images/Homes/keshav.jpeg')
+    const [auth, setAuth] = useAuth();
+
     return (
         <>
             <section className="header">
                 <img src={head_img} alt="" />
             </section>
+            <pre>{JSON.stringify(auth, null, 4)}</pre>
             <section className="shops">
                 <div className="contents">
                     <img className='cont_img' src={purch_img} alt="" />

@@ -3,32 +3,39 @@ import './Signup.css'
 import Footer from '../../components/Footer/Footer'
 import Copyright from '../../components/Copyright/Copyright'
 import { TextField, Button, FormControlLabel, Grid, Typography, Container, FormControl, Radio, FormLabel, RadioGroup } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
 
-  const [formData, setFormData] = useState({
-    fullName: '',
-    gender: '',
-    dateOfBirth: '',
-    email: '',
-    number: '',
-    Address: '',
-    username: '',
-    newpass: '',
-    cofipass: '',
-    receiveEmails: false,
-  });
+  const [name, setName] = useState('')
+  const [gender, setGender] = useState('')
+  const [dob, setDob] = useState('')
+  const [email, setEmail] = useState('')
+  const [contact, setContact] = useState('')
+  const [address, setAddress] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [confipass, setConfipass] = useState('')
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      const res = await axios.post('/users', { name, gender, dob, email, contact, address, username, password });
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate("/Login");
+      }
+      else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Something went wrong');
+    }
   };
 
   return (
@@ -43,9 +50,9 @@ const Signup = () => {
             <Grid item xs={12} sm={12}>
               <TextField
                 label="Full Name"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 fullWidth
                 required
               />
@@ -55,13 +62,13 @@ const Signup = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 label="Date of Birth"
-                name="dateOfBirth"
+                name="dob"
                 type="date"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                value={formData.dateOfBirth}
-                onChange={handleChange}
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
                 fullWidth
                 required
               />
@@ -73,8 +80,8 @@ const Signup = () => {
                 <FormLabel component="legend">Gender</FormLabel>
                 <RadioGroup
                   name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
                   row
                 >
                   <FormControlLabel value="male" control={<Radio />} label="Male" />
@@ -88,9 +95,9 @@ const Signup = () => {
             <Grid item xs={12} sm={12}>
               <TextField
                 label="Contact"
-                name="number"
-                value={formData.number}
-                onChange={handleChange}
+                name="contact"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
                 fullWidth
                 required
               />
@@ -101,8 +108,8 @@ const Signup = () => {
               <TextField
                 label="Email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 fullWidth
                 required
               />
@@ -113,8 +120,8 @@ const Signup = () => {
               <TextField
                 label="Address"
                 name="address"
-                value={formData.address}
-                onChange={handleChange}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 fullWidth
                 required
               />
@@ -125,8 +132,8 @@ const Signup = () => {
               <TextField
                 label="Username"
                 name="username"
-                value={formData.username}
-                onChange={handleChange}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 fullWidth
                 required
               />
@@ -136,10 +143,10 @@ const Signup = () => {
             <Grid item xs={12} sm={12}>
               <TextField
                 label="New Password"
-                name="newpass"
+                name="password"
                 type='password'
-                value={formData.newpass}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 fullWidth
                 required
               />
@@ -149,10 +156,10 @@ const Signup = () => {
             <Grid item xs={12} sm={12}>
               <TextField
                 label="Confirm Password"
-                name="cofipass"
+                name="confipass"
                 type='password'
-                value={formData.cofipass}
-                onChange={handleChange}
+                value={confipass}
+                onChange={(e) => setConfipass(e.target.value)}
                 fullWidth
                 required
               />
@@ -163,6 +170,7 @@ const Signup = () => {
           </Grid>
         </form>
       </Container>
+      <ToastContainer />
       <Footer />
       <Copyright />
     </>

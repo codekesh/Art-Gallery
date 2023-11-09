@@ -2,9 +2,20 @@ import React from 'react'
 import './Navbar.css'
 import { NavLink } from "react-router-dom"
 import { Button } from '@mui/material'
+import { useAuth } from '../../context/AuthProvider'
 
 const Navbar = () => {
-    const logo = require('../../images/Homes/05dcad8c91c34402b5b4533eeb309c1e.png')
+    const [auth, setAuth] = useAuth();
+    const logo = require('../../images/Homes/logo1.png')
+    const handleLogout = () => {
+        setAuth({
+            ...auth,
+            user: null,
+            token: '',
+        })
+        localStorage.removeItem("auth")
+    }
+    
     return (
         <nav className="navbar sticky">
             <NavLink to="/">
@@ -16,12 +27,21 @@ const Navbar = () => {
                 <NavLink className="nav-link" to="/Event">Events</NavLink>
                 <NavLink className="nav-link" to="/News">News</NavLink>
                 <NavLink className="nav-link" to="/About">About Us</NavLink>
-                <NavLink to="/Login">
-                    <Button variant="contained" style={{ color: '#D0006E', background: 'white', margin: '0px 3rem 0px 0px' }}>Log In</Button>
-                </NavLink>
-                <NavLink to="/Signup">
-                    <Button variant="contained" style={{ color: '#D0006E', background: 'white' }}>Sign Up</Button>
-                </NavLink>
+                {
+                    !auth.user ?
+                        (<>
+                            <NavLink to="/Login">
+                                <Button variant="contained" style={{ color: '#D0006E', background: 'white', margin: '0px 3rem 0px 0px' }}>Log In</Button>
+                            </NavLink>
+                            <NavLink to="/Signup">
+                                <Button variant="contained" style={{ color: '#D0006E', background: 'white' }}>Sign Up</Button>
+                            </NavLink>
+                        </>)
+                        :
+                        (<NavLink onClick={handleLogout} to="/Login">
+                            <Button variant="contained" style={{ color: '#D0006E', background: 'white', margin: '0px 3rem 0px 0px' }}>Log Out</Button>
+                        </NavLink>)
+                }
             </div>
         </nav>
     )

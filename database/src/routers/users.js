@@ -8,7 +8,6 @@ const requireSignIn = require('../middlewares/authMiddlewares');
 
 router.post('/users', async (req, res) => {
     try {
-        console.log(req.body);
         const { name, dob, gender, contact, email, address, username, password } = req.body;
 
         // checking user
@@ -18,13 +17,13 @@ router.post('/users', async (req, res) => {
         // existing user
         if (existingEmail) {
             return res.status(200).send({
-                success: true,
+                success: false,
                 message: "Already Resgister please login"
             })
         }
         if (existingUser) {
             return res.status(200).send({
-                success: true,
+                success: false,
                 message: "Already taken try different one"
             })
         }
@@ -91,7 +90,7 @@ router.delete('/users/:id', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const { name, contact, email, username, password } = req.body
+        const { email, password } = req.body
         if (!email || !password) {
             return res.status(404).send({
                 success: false,

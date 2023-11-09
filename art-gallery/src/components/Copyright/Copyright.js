@@ -3,7 +3,7 @@ import './Copyright.css'
 
 const Copyright = () => {
     return (
-        <div class="copy">
+        <div className="copy">
             &copy; 2023 Map-India All rights reserved. | Privacy Policy | Terms and
             Conditions | Refunds/Cancellations
         </div>

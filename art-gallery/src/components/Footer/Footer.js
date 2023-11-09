@@ -3,13 +3,13 @@ import { Button } from '@mui/material'
 import './Footer.css'
 
 const Footer = () => {
-    const logo=require('../../images/Homes/05dcad8c91c34402b5b4533eeb309c1e.png')
+    const logo=require('../../images/Homes/logo1.png')
     return (
         <footer>
-            <div class="left-side">
+            <div className="left-side">
                 <img src={logo} alt="" />
-                <div class="footer-links">
-                    <div class="Explore">
+                <div className="footer-links">
+                    <div className="Explore">
                         <h3>Explore</h3>
                         <p>Events</p>
                         <p>Blogs</p>
@@ -18,7 +18,7 @@ const Footer = () => {
                         <p>Collections</p>
                         <p>Learn</p>
                     </div>
-                    <div class="About Us">
+                    <div className="About Us">
                         <h3>About Us</h3>
                         <p>People</p>
                         <p>Press</p>
@@ -27,7 +27,7 @@ const Footer = () => {
                         <p>Contact us</p>
                         <p>FAQs</p>
                     </div>
-                    <div class="Support Us">
+                    <div className="Support Us">
                         <h3>Support Us</h3>
                         <p>Donations</p>
                         <p>Sponsor us</p>
@@ -35,19 +35,19 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div class="right-side">
-                <form action="get" class="form">
+            <div className="right-side">
+                <form action="get" className="form">
                     <h2>Subscribe to us to know about events, exhibitions and news</h2>
                     <input type="text" placeholder="Name" />
                     <input type="text" placeholder="Email ID" />
                     <Button variant="contained" style={{ color: 'white', background: '#D0006E', width: '150px', borderRadius: '20px' }}>Subscribe</Button>
                 </form>
-                <div class="icons">
-                    <i class="fa-brands fa-lg fa-twitter"></i>
-                    <i class="fa-brands fa-lg fa-facebook-f"></i>
-                    <i class="fa-brands fa-lg fa-instagram"></i>
-                    <i class="fa-brands fa-lg fa-linkedin-in"></i>
-                    <i class="fa-brands fa-lg fa-pinterest"></i>
+                <div className="icons">
+                    <i className="fa-brands fa-lg fa-twitter"></i>
+                    <i className="fa-brands fa-lg fa-facebook-f"></i>
+                    <i className="fa-brands fa-lg fa-instagram"></i>
+                    <i className="fa-brands fa-lg fa-linkedin-in"></i>
+                    <i className="fa-brands fa-lg fa-pinterest"></i>
                 </div>
             </div>
         </footer>

@@ -8,6 +8,7 @@ import About from './Pages/About/About'
 import { Routes, Route } from 'react-router-dom'
 import Login from './Pages/Login/Login'
 import Signup from './Pages/Signup/SIgnup.js'
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
