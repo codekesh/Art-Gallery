@@ -15,7 +15,7 @@ const Navbar = () => {
         })
         localStorage.removeItem("auth")
     }
-    
+
     return (
         <nav className="navbar sticky">
             <NavLink to="/">
@@ -38,9 +38,12 @@ const Navbar = () => {
                             </NavLink>
                         </>)
                         :
-                        (<NavLink onClick={handleLogout} to="/Login">
-                            <Button variant="contained" style={{ color: '#D0006E', background: 'white', margin: '0px 3rem 0px 0px' }}>Log Out</Button>
-                        </NavLink>)
+                        (<>
+                            <NavLink className="nav-link" to="/Dash">Dashbaord</NavLink>
+                            <NavLink onClick={handleLogout} to="/Login">
+                                <Button variant="contained" style={{ color: '#D0006E', background: 'white', margin: '0px 3rem 0px 0px' }}>Log Out</Button>
+                            </NavLink>
+                        </>)
                 }
             </div>
         </nav>

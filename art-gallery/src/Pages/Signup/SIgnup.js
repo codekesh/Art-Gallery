@@ -9,10 +9,11 @@ import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
 
-  const [name, setName] = useState('')
-  const [gender, setGender] = useState('')
   const [dob, setDob] = useState('')
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [gender, setGender] = useState('')
+  const [answer, setAnswer] = useState('')
   const [contact, setContact] = useState('')
   const [address, setAddress] = useState('')
   const [username, setUsername] = useState('')
@@ -24,7 +25,17 @@ const Signup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.post('/users', { name, gender, dob, email, contact, address, username, password });
+      const res = await axios.post('/users', {
+        name,
+        dob,
+        gender,
+        contact,
+        email,
+        address,
+        username,
+        password,
+        answer
+      });
       if (res.data.success) {
         toast.success(res.data.message);
         navigate("/Login");
@@ -51,6 +62,7 @@ const Signup = () => {
               <TextField
                 label="Full Name"
                 name="name"
+                type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 fullWidth
@@ -96,6 +108,7 @@ const Signup = () => {
               <TextField
                 label="Contact"
                 name="contact"
+                type='number'
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
                 fullWidth
@@ -108,6 +121,7 @@ const Signup = () => {
               <TextField
                 label="Email"
                 name="email"
+                type='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 fullWidth
@@ -120,6 +134,7 @@ const Signup = () => {
               <TextField
                 label="Address"
                 name="address"
+                type='text'
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 fullWidth
@@ -133,6 +148,7 @@ const Signup = () => {
                 label="Username"
                 name="username"
                 value={username}
+                type='type'
                 onChange={(e) => setUsername(e.target.value)}
                 fullWidth
                 required
@@ -160,6 +176,18 @@ const Signup = () => {
                 type='password'
                 value={confipass}
                 onChange={(e) => setConfipass(e.target.value)}
+                fullWidth
+                required
+              />
+            </Grid>
+            {/* answer */}
+            <Grid item xs={12} sm={12}>
+              <TextField
+                label="What is your first born city name?"
+                name="answer"
+                type='text'
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
                 fullWidth
                 required
               />

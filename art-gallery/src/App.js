@@ -9,6 +9,9 @@ import { Routes, Route } from 'react-router-dom'
 import Login from './Pages/Login/Login'
 import Signup from './Pages/Signup/SIgnup.js'
 import 'react-toastify/dist/ReactToastify.css';
+import Private from './components/Routes/Private/Private.js'
+import Dash from './Pages/Dashboard/Dash.js'
+import Forgot from './Pages/Forgot/Forgot.js'
 
 const App = () => {
   return (
@@ -16,7 +19,11 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/Dash" element={<Private />}>
+          <Route path="" element={<Dash />}></Route>
+        </Route>
         <Route path="/Shop" element={<Shop />}></Route>
+        <Route path="/Forgot" element={<Forgot />}></Route>
         <Route path="/Event" element={<Event />}></Route>
         <Route path="/News" element={<News />}></Route>
         <Route path="/About" element={<About />}></Route>

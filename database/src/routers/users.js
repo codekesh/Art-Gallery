@@ -8,7 +8,7 @@ const requireSignIn = require('../middlewares/authMiddlewares');
 
 router.post('/users', async (req, res) => {
     try {
-        const { name, dob, gender, contact, email, address, username, password } = req.body;
+        const { name, dob, gender, contact, email, address, username, password, answer } = req.body;
 
         // checking user
         const existingEmail = await Users.findOne({ email })
@@ -31,10 +31,10 @@ router.post('/users', async (req, res) => {
         const hashedPassword = await hashPassword(password)
 
         // save
-        const user = await new Users({ name, dob, gender, contact, email, address, username, password: hashedPassword }).save();
+        const user = await new Users({ name, dob, gender, contact, email, address, username, password: hashedPassword, answer }).save();
         res.status(201).send({
             success: true,
-            message: "Resgistered successfully",
+            message: "Registered successfully",
             user
         })
     } catch (e) {
@@ -139,7 +139,38 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/test', requireSignIn, (req, res) => {
-    res.send("protected route")
+router.get('/user-auth', requireSignIn, (req, res) => {
+    res.status(200).send({ ok: true })
 })
+
+// forgot password
+router.post('forgot-password', async (req, res) => {
+    try {
+        const { email, answer, newpassword } = req.body
+
+        //check 
+        const user = await Users.findOne({ email, answer })
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: 'Something went wrong'
+            })
+        }
+        const hashed = await hashPassword(newpassword)
+        await Users.findByIdAndUpdate(user._id, { password: hashed })
+        res.status(200).sned({
+            success: true,
+            message: 'Password reset successfully'
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: true,
+            message: "Something went wrong",
+            error
+        })
+    }
+})
+
+
 module.exports = router;
