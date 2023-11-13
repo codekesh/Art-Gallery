@@ -4,13 +4,13 @@ import { Outlet } from 'react-router-dom'
 import axios from 'axios'
 import Loading from '../Loading/Loading'
 
-const Private = () => {
+const AdminRoute = () => {
     const [ok, setOk] = useState(false)
     const [auth, setAuth] = useAuth()
 
     useEffect(() => {
         const authCheck = async () => {
-            const res = await axios.get('/user-auth')
+            const res = await axios.get('/admin-auth')
             if (res.data.ok) {
                 setOk(true)
             }
@@ -21,8 +21,8 @@ const Private = () => {
         if (auth?.token) authCheck();
     }, [auth?.token])
     return (
-        ok ? <Outlet /> : <Loading />
+        ok ? <Outlet /> : <Loading path=""/>
     )
 }
 
-export default Private
+export default AdminRoute

@@ -4,23 +4,21 @@ import Copyright from '../../components/Copyright/Copyright'
 import Sponsor from '../../components/Sponsor/Sponsor'
 import './Home.css'
 import { Button } from '@mui/material'
-import { useAuth } from '../../context/AuthProvider.js'
+import { NavLink } from 'react-router-dom'
 
 const Home = () => {
-    const head_img = require('../../images/Homes/fantasy-2506830.jpg')
+    const head_img = require('../../images/Homes/fantasy.jpg')
     const purch_img = require('../../images/Homes/woman.jpg')
     const events_img = require('../../images/Homes/events.jpg')
     const clct_img = require('../../images/Homes/collection.jpg')
     const news_img = require('../../images/Homes/collection.jpg')
     const own_img1 = require('../../images/Homes/keshav.jpeg')
-    const [auth, setAuth] = useAuth();
 
     return (
         <>
             <section className="header">
                 <img src={head_img} alt="" />
             </section>
-            <pre>{JSON.stringify(auth, null, 4)}</pre>
             <section className="shops">
                 <div className="contents">
                     <img className='cont_img' src={purch_img} alt="" />
@@ -30,7 +28,9 @@ const Home = () => {
                             Want your walls to be of portraits or arrange your showcase with
                             some good artwork
                         </p>
-                        <Button variant="contained" style={{ color: 'white', background: '#D0006E', width: '150px' }}>Go to Shop</Button>
+                        <NavLink to="/Shop">
+                            <Button variant="contained" style={{ color: 'white', background: '#D0006E', width: '150px' }}>Go to Shop</Button>
+                        </NavLink>
                     </div>
                 </div>
             </section>
@@ -40,7 +40,9 @@ const Home = () => {
                     <div className="evt_dtl">
                         <h1 className='evt_head'>Events</h1>
                         <p className='evt_para'>Explore, participate and enjoy events</p>
-                        <Button variant="contained" style={{ color: 'white', background: '#D0006E', width: '150px' }}>Check Event</Button>
+                        <NavLink to="/Event">
+                            <Button variant="contained" style={{ color: 'white', background: '#D0006E', width: '150px' }}>Check Event</Button>
+                        </NavLink>
                     </div>
                 </div>
             </section>
@@ -50,7 +52,9 @@ const Home = () => {
                     <div className="clct_dtl">
                         <h1 className='clct_head'>Collections</h1>
                         <p className='clct_para'>We have exciting collections of arts and crafts that'll amaze you.</p>
-                        <Button variant="contained" style={{ color: 'white', background: '#D0006E', width: '150px' }}>Library</Button>
+                        <NavLink to="/Event">
+                            <Button variant="contained" style={{ color: 'white', background: '#D0006E', width: '150px' }}>Library</Button>
+                        </NavLink>
                     </div>
                 </div>
             </section>
@@ -60,7 +64,9 @@ const Home = () => {
                     <div className="nws_dtl">
                         <h1 className='nws_head'>News</h1>
                         <p className='nws_para'>We publish exciting blogs, upcoming events, new products in stock on daily basis.</p>
-                        <Button variant="contained" style={{ color: 'white', background: '#D0006E', width: '150px' }}>Read</Button>
+                        <NavLink to="/News">
+                            <Button variant="contained" style={{ color: 'white', background: '#D0006E', width: '150px' }}>Read</Button>
+                        </NavLink>
                     </div>
                 </div>
             </section>

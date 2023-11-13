@@ -28,7 +28,8 @@ const Login = () => {
                     token: res.data.token
                 });
                 localStorage.setItem('auth', JSON.stringify(res.data));
-                navigate(location.state || "/Dash");
+                console.log(auth)
+                navigate(location.state || (auth?.user?.role === 1 ? "/Admindashboard" : "/Userdashboard"));
             }
             else {
                 toast.error(res.data.message);
@@ -38,12 +39,14 @@ const Login = () => {
             toast.error('Something went wrong');
         }
     };
-
+    
     return (
         <>
             <Container component="main" maxWidth="xs" className='signUp'>
                 <Typography variant="h5" align="center" style={{ marginBottom: "10px" }}>Login!</Typography>
-                <Typography variant="h6" align="center" style={{ lineHeight: "1.2", marginBottom: "12px" }}>Enter your credentials and enjoy the Artsverse</Typography>
+                <Typography variant="h6" align="center" style={{ lineHeight: "1.2", marginBottom: "12px" }}>
+                    Enter your credentials and enjoy the Artsverse
+                </Typography>
 
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
@@ -62,7 +65,7 @@ const Login = () => {
                         {/* Password */}
                         <Grid item xs={12} sm={12}>
                             <TextField
-                                label="New Password"
+                                label="Password"
                                 name="password"
                                 type='password'
                                 value={password}
@@ -72,7 +75,7 @@ const Login = () => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Button type="button" fullWidth variant="contained" color="primary" onClick={()=>{navigate('/Forgot')}}>
+                            <Button type="button" fullWidth variant="contained" color="primary" onClick={() => { navigate('/Forgot') }}>
                                 Forgot Password
                             </Button>
                         </Grid>

@@ -17,7 +17,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="navbar sticky">
+        <nav className="navbar">
             <NavLink to="/">
                 <img src={logo} alt="logo" />
             </NavLink>
@@ -39,7 +39,7 @@ const Navbar = () => {
                         </>)
                         :
                         (<>
-                            <NavLink className="nav-link" to="/Dash">Dashbaord</NavLink>
+                            <NavLink className="nav-link" to={`${auth?.user?.role === 1 ? '/Admindashboard' : '/Userdashboard'}`}>Dashboard</NavLink>
                             <NavLink onClick={handleLogout} to="/Login">
                                 <Button variant="contained" style={{ color: '#D0006E', background: 'white', margin: '0px 3rem 0px 0px' }}>Log Out</Button>
                             </NavLink>

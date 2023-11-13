@@ -1,9 +1,10 @@
 import React from 'react'
 import { Button } from '@mui/material'
 import './Footer.css'
+import { NavLink } from 'react-router-dom'
 
 const Footer = () => {
-    const logo=require('../../images/Homes/logo1.png')
+    const logo = require('../../images/Homes/logo1.png')
     return (
         <footer>
             <div className="left-side">
@@ -11,26 +12,42 @@ const Footer = () => {
                 <div className="footer-links">
                     <div className="Explore">
                         <h3>Explore</h3>
-                        <p>Events</p>
-                        <p>Blogs</p>
-                        <p>Shops</p>
-                        <p>Exhibitions</p>
-                        <p>Collections</p>
-                        <p>Learn</p>
+                        <NavLink to="/Shop">
+                            <p>Shops</p>
+                        </NavLink>
+                        <NavLink to="/Event">
+                            <p>Events</p>
+                        </NavLink>
+                        <NavLink to="/News">
+                            <p>News</p>
+                        </NavLink>
+                        <NavLink to="/">
+                            <p>Exhibitions</p>
+                        </NavLink>
+                        <NavLink to="/">
+                            <p>Collections</p>
+                        </NavLink>
                     </div>
                     <div className="About Us">
                         <h3>About Us</h3>
-                        <p>People</p>
-                        <p>Press</p>
-                        <p>Join us</p>
-                        <p>Social Media</p>
-                        <p>Contact us</p>
-                        <p>FAQs</p>
+                        <NavLink to="/">
+                            <p>People</p>
+                        </NavLink>
+                        <NavLink to="/">
+                            <p>Contact us</p>
+                        </NavLink>
+                        <NavLink to="/">
+                            <p>FAQs</p>
+                        </NavLink>
                     </div>
                     <div className="Support Us">
                         <h3>Support Us</h3>
-                        <p>Donations</p>
-                        <p>Sponsor us</p>
+                        <NavLink to="/">
+                            <p>Follow Us</p>
+                        </NavLink>
+                        <NavLink to="/">
+                            <p>Share link</p>
+                        </NavLink>
                     </div>
                 </div>
             </div>

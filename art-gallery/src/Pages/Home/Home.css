@@ -12,21 +12,6 @@
     z-index: 1;
 }
 
-.shops::before {
-    content: "";
-    background: url('../../images/Homes/background-3616101_1920.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    opacity: 0.9;
-}
-
 .contents,
 .evts,
 .clct,

@@ -5,12 +5,9 @@
     align-items: center;
     padding-left: 50px;
     z-index: 100;
-}
-
-.sticky {
     position: fixed;
-    top: 0;
     width: 100%;
+    top: 0;
 }
 
 .navbar img {

@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const Users = require('../models/users');
 
 const requireSignIn = async (req, res, next) => {
     try {
@@ -10,4 +11,29 @@ const requireSignIn = async (req, res, next) => {
     }
 }
 
+const isAdmin = async (req, res, next) => {
+    try {
+        console.log("Hello");
+        console.log(req);
+        const user = await Users.findById(req.user._id)
+        console.log(user);
+        if (!user.role) {
+            return res.status(401).send({
+                success: false,
+                message: "Unauthorized Access"
+            })
+        } else {
+            next();
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(401).send({
+            success: false,
+            error,
+            message: "Error in Admin middleware"
+        })
+    }
+}
+
 module.exports = requireSignIn;
+module.exports = isAdmin;

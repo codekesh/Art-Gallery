@@ -5,6 +5,7 @@ const router = new express.Router();
 
 const JWT = require('jsonwebtoken');
 const requireSignIn = require('../middlewares/authMiddlewares');
+const isAdmin = require('../middlewares/authMiddlewares');
 
 router.post('/users', async (req, res) => {
     try {
@@ -18,7 +19,7 @@ router.post('/users', async (req, res) => {
         if (existingEmail) {
             return res.status(200).send({
                 success: false,
-                message: "Already Resgister please login"
+                message: "Already Register please login"
             })
         }
         if (existingUser) {
@@ -125,7 +126,8 @@ router.post('/login', async (req, res) => {
             user: {
                 name: user.name,
                 email: user.email,
-                contact: user.contact
+                contact: user.contact,
+                role: user.role
             },
             token
         })
@@ -139,9 +141,20 @@ router.post('/login', async (req, res) => {
     }
 })
 
+// protected test
+router.get('/test', requireSignIn, isAdmin, (req, res) => {
+    res.status(200).send({ ok: true })
+})
+
+// protected user route
 router.get('/user-auth', requireSignIn, (req, res) => {
     res.status(200).send({ ok: true })
 })
+
+// protected admin route
+router.get('/admin-auth', requireSignIn, isAdmin, (req, res) => {
+    res.status(200).send({ ok: true });
+});
 
 // forgot password
 router.post('forgot-password', async (req, res) => {
@@ -158,7 +171,7 @@ router.post('forgot-password', async (req, res) => {
         }
         const hashed = await hashPassword(newpassword)
         await Users.findByIdAndUpdate(user._id, { password: hashed })
-        res.status(200).sned({
+        res.status(200).send({
             success: true,
             message: 'Password reset successfully'
         })
