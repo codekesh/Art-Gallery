@@ -4,8 +4,7 @@ const { hashPassword, comparePassword } = require('../helper/authHelper');
 const router = new express.Router();
 
 const JWT = require('jsonwebtoken');
-const requireSignIn = require('../middlewares/authMiddlewares');
-const isAdmin = require('../middlewares/authMiddlewares');
+const { requireSignIn, isAdmin } = require('../middlewares/authMiddlewares');
 
 router.post('/users', async (req, res) => {
     try {
@@ -108,7 +107,6 @@ router.post('/login', async (req, res) => {
             })
         }
         const match = await comparePassword(password, user.password)
-
         if (!match) {
             return res.status(200).send({
                 success: false,
@@ -141,10 +139,11 @@ router.post('/login', async (req, res) => {
     }
 })
 
-// protected test
-router.get('/test', requireSignIn, isAdmin, (req, res) => {
-    res.status(200).send({ ok: true })
-})
+// // protected test
+// router.get('/test', requireSignIn, isAdmin, (req, res) => {
+//     res.status(200).send({ ok: true })
+// })
+
 
 // protected user route
 router.get('/user-auth', requireSignIn, (req, res) => {
@@ -157,33 +156,46 @@ router.get('/admin-auth', requireSignIn, isAdmin, (req, res) => {
 });
 
 // forgot password
-router.post('forgot-password', async (req, res) => {
+router.post('/forgotPassword', async (req, res) => {
     try {
-        const { email, answer, newpassword } = req.body
+        const { email, newpassword, answer } = req.body;
 
-        //check 
-        const user = await Users.findOne({ email, answer })
+        // Check for the user by email
+        const user = await Users.findOne({ email });
         if (!user) {
             return res.status(404).send({
                 success: false,
-                message: 'Something went wrong'
-            })
+                message: 'User not found',
+            });
         }
-        const hashed = await hashPassword(newpassword)
-        await Users.findByIdAndUpdate(user._id, { password: hashed })
+
+        // Check if the answer is correct
+        if (user.answer !== answer) {
+            return res.status(401).send({
+                success: false,
+                message: 'Incorrect answer',
+            });
+        }
+
+        // If the answer is correct, update the password
+        console.log(newpassword)
+        const hashed = await hashPassword(newpassword);
+        console.log(hashed)
+        await Users.findByIdAndUpdate(user._id, { password: hashed });
+
         res.status(200).send({
             success: true,
-            message: 'Password reset successfully'
-        })
+            message: 'Password reset successfully',
+        });
     } catch (error) {
         console.log(error);
         res.status(500).send({
-            success: true,
-            message: "Something went wrong",
-            error
-        })
+            success: false,
+            message: 'Something went wrong',
+            error,
+        });
     }
-})
+});
 
 
 module.exports = router;

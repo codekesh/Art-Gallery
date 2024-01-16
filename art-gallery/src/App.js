@@ -10,11 +10,16 @@ import Login from './Pages/Login/Login'
 import Signup from './Pages/Signup/SIgnup.js'
 import 'react-toastify/dist/ReactToastify.css';
 import Private from './components/Routes/Private/Private.js'
-import Userdashboard from './Pages/Dashboard/Userdashboard.js'
 import Forgot from './Pages/Forgot/Forgot.js'
 import Productpage from './Pages/Productpage/Productpage.js'
 import AdminRoute from './components/Routes/Private/AdminRoute.js'
-import Admindashboard from './Pages/Admindashboard/Admindashboard.js'
+import Admindashboard from './Pages/Admin/Admindashboard/Admindashboard.js'
+import CreateCategory from './Pages/Admin/CreateCategory/CreateCategory.js'
+import CreateProduct from './Pages/Admin/CreateProduct/CreateProduct.js'
+import Users from './Pages/Admin/Users/Users.js'
+import Userdashboard from './Pages/User/Userdashboard/Userdashboard.js'
+import Profile from './Pages/User/Profile/Profile.js'
+import Orders from './Pages/User/Orders/Orders.js'
 
 const App = () => {
   return (
@@ -22,11 +27,16 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/Userdashboard" element={<Private />}>
-          <Route path="/Userdashboard" element={<Userdashboard />}></Route>
+        <Route path="/User" element={<Private />}>
+          <Route path="Userdashboard" element={<Userdashboard />}/>
+          <Route path="Userdashboard/profile" element={<Profile />}/>
+          <Route path="Userdashboard/orders" element={<Orders />}/>
         </Route>
-        <Route path="/Admindashboard" element={<AdminRoute />}>
-          <Route path="/Admindashboard" element={<Admindashboard />}></Route>
+        <Route path="/Admin" element={<AdminRoute />}>
+          <Route path="Admindashboard" element={<Admindashboard />}/>
+          <Route path="Admindashboard/create-category" element={<CreateCategory />}/>
+          <Route path="Admindashboard/create-product" element={<CreateProduct />}/>
+          <Route path="Admindashboard/users" element={<Users />}/>
         </Route>
         <Route path="/Shop" element={<Shop />}></Route>
         <Route path="/Forgot" element={<Forgot />}></Route>

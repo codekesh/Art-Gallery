@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Footer from '../../components/Footer/Footer'
 import Copyright from '../../components/Copyright/Copyright'
 import { TextField, Button, Grid, Typography, Container } from '@mui/material';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const Forgot = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.post('/forgot-password', { email, newpassword, answer });
+            const res = await axios.post('/forgotPassword', { email, newpassword, answer });
             if (res.data.success) {
                 toast.success(res.data.message);
                 navigate("/login");

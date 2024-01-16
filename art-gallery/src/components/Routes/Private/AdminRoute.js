@@ -21,7 +21,7 @@ const AdminRoute = () => {
         if (auth?.token) authCheck();
     }, [auth?.token])
     return (
-        ok ? <Outlet /> : <Loading path=""/>
+        ok ? <Outlet /> : <Loading path="/"/>
     )
 }
 

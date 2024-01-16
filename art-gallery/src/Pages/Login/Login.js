@@ -5,7 +5,7 @@ import Copyright from '../../components/Copyright/Copyright'
 import { TextField, Button, Grid, Typography, Container } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider'
 
 const Login = () => {
@@ -13,7 +13,6 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [auth, setAuth] = useAuth();
-    const location = useLocation()
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -28,8 +27,7 @@ const Login = () => {
                     token: res.data.token
                 });
                 localStorage.setItem('auth', JSON.stringify(res.data));
-                console.log(auth)
-                navigate(location.state || (auth?.user?.role === 1 ? "/Admindashboard" : "/Userdashboard"));
+                navigate("/");
             }
             else {
                 toast.error(res.data.message);

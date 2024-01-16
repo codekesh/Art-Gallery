@@ -21,7 +21,7 @@ const Private = () => {
         if (auth?.token) authCheck();
     }, [auth?.token])
     return (
-        ok ? <Outlet /> : <Loading />
+        ok ? <Outlet /> : <Loading path="/"/>
     )
 }
 
