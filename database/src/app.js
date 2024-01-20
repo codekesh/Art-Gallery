@@ -10,6 +10,8 @@ const pictureRouter = require('./routers/pictures')
 const sculptureRouter = require('./routers/sculptures')
 const sketchRouter = require('./routers/sketches')
 const userRouter = require('./routers/users')
+const categoryRouter = require('./routers/category')
+const productRouter = require('./routers/product')
 
 const app = express();
 const port = process.env.PORT || 8000
@@ -21,6 +23,8 @@ app.use(pictureRouter);
 app.use(sculptureRouter);
 app.use(sketchRouter);
 app.use(userRouter);
+app.use(categoryRouter);
+app.use(productRouter);
 app.use(cors({ origin: 'http://localhost:3000' }));
 
 app.use((req, res, next) => {
