@@ -25,14 +25,7 @@ app.use(sketchRouter);
 app.use(userRouter);
 app.use(categoryRouter);
 app.use(productRouter);
-app.use(cors({ origin: 'http://localhost:3000' }));
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-});
+app.use(cors({ origin: 'http://localhost:3000', method: ["GET", "POST", "PUT", "DELETE"] }));
 
 app.listen(port, (req, res) => {
     console.log("connection at", port);
