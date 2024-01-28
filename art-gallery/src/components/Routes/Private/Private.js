@@ -6,6 +6,7 @@ import Loading from '../Loading/Loading'
 
 const Private = () => {
     const [ok, setOk] = useState(false)
+    // eslint-disable-next-line
     const [auth, setAuth] = useAuth()
 
     useEffect(() => {

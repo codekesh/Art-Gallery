@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Footer from '../../../components/Footer/Footer'
 import Copyright from '../../../components/Copyright/Copyright'
 import AdminMenu from '../../../components/AdminMenu/AdminMenu'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,8 +11,9 @@ import Select from '@mui/material/Select';
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
     const navigate = useNavigate();
+    const params = useParams()
     const [categories, setCategories] = useState([]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -22,6 +23,27 @@ const CreateProduct = () => {
     const [artists, setArtists] = useState("");
     const [photo, setPhoto] = useState("");
     const [shipping, setShipping] = useState("");
+    const [id, setId] = useState("");
+
+    const getSingleProduct = async () => {
+        try {
+            const { data } = await axios.get(`/product/${params.slug}`);
+            setName(data.productData.name);
+            setId(data.productData._id);
+            setDescription(data.productData.description);
+            setPrice(data.productData.price);
+            setArtists(data.productData.artists)
+            setQuantity(data.productData.quantity);
+            setShipping(data.productData.shipping);
+            setCategory(data.productData.category._id);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    useEffect(() => {
+        getSingleProduct();
+        //eslint-disable-next-line
+    }, []);
 
     //get all category
     const getAllCategory = async () => {
@@ -40,7 +62,7 @@ const CreateProduct = () => {
         getAllCategory();
     }, [])
 
-    const handleCreate = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
         try {
             const productData = new FormData();
@@ -49,14 +71,14 @@ const CreateProduct = () => {
             productData.append("price", price);
             productData.append("quantity", quantity);
             productData.append("artists", artists);
-            productData.append("photo", photo);
+            photo && productData.append("photo", photo);
             productData.append("category", category);
-            const { data } = axios.post(
-                "/create-product",
+            const { data } = axios.put(
+                `/update-product/${id}`,
                 productData
             );
             if (data?.success) {
-                toast.success("Product Created Successfully");
+                toast.success("Product Updated Successfully");
             } else {
                 toast.error(data?.message);
                 navigate('/Admin/Admindashboard/products')
@@ -64,6 +86,21 @@ const CreateProduct = () => {
         } catch (error) {
             console.log(error);
             toast.error("something went wrong");
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            let answer = window.prompt("Are You Sure want to delete this product ? ");
+            if (!answer) return;
+            const { data } = await axios.delete(
+                `/delete-product/${id}`
+            );
+            toast.success(`${data} Deleted Successfully`);
+            navigate('/Admin/Admindashboard/products')
+        } catch (error) {
+            console.log(error);
+            toast.error("Something went wrong");
         }
     };
 
@@ -94,9 +131,13 @@ const CreateProduct = () => {
                     </label>
                 </div>
                 <div>
-                    {photo && (
+                    {photo ? (
                         <div>
                             <img src={URL.createObjectURL(photo)} alt="proDuct_photo" height={'200px'} />
+                        </div>
+                    ) : (
+                        <div>
+                            <img src={`/product-photo/${id}`} alt="proDuct_photo" height={'200px'} />
                         </div>
                     )}
                 </div>
@@ -122,8 +163,13 @@ const CreateProduct = () => {
                         </FormControl>
                     </Box>
                     <div>
-                        <button onClick={handleCreate}>
-                            CREATE PRODUCT
+                        <button onClick={handleUpdate}>
+                            Update Product
+                        </button>
+                    </div>
+                    <div>
+                        <button onClick={handleDelete}>
+                            Delete Product
                         </button>
                     </div>
                 </div>
@@ -134,4 +180,4 @@ const CreateProduct = () => {
     )
 }
 
-export default CreateProduct
+export default UpdateProduct

@@ -20,6 +20,8 @@ import Users from './Pages/Admin/Users/Users.js'
 import Userdashboard from './Pages/User/Userdashboard/Userdashboard.js'
 import Profile from './Pages/User/Profile/Profile.js'
 import Orders from './Pages/User/Orders/Orders.js'
+import Product from './Pages/Admin/Product/Product.js'
+import UpdateProduct from './Pages/Admin/UpdateProduct/UpdateProduct.js'
 
 const App = () => {
   return (
@@ -28,15 +30,17 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/User" element={<Private />}>
-          <Route path="Userdashboard" element={<Userdashboard />}/>
-          <Route path="Userdashboard/profile" element={<Profile />}/>
-          <Route path="Userdashboard/orders" element={<Orders />}/>
+          <Route path="Userdashboard" element={<Userdashboard />} />
+          <Route path="Userdashboard/profile" element={<Profile />} />
+          <Route path="Userdashboard/orders" element={<Orders />} />
         </Route>
         <Route path="/Admin" element={<AdminRoute />}>
-          <Route path="Admindashboard" element={<Admindashboard />}/>
-          <Route path="Admindashboard/create-category" element={<CreateCategory />}/>
-          <Route path="Admindashboard/create-product" element={<CreateProduct />}/>
-          <Route path="Admindashboard/users" element={<Users />}/>
+          <Route path="Admindashboard" element={<Admindashboard />} />
+          <Route path="Admindashboard/create-category" element={<CreateCategory />} />
+          <Route path="Admindashboard/create-product" element={<CreateProduct />} />
+          <Route path="Admindashboard/product/:slug" element={<UpdateProduct />} />
+          <Route path="Admindashboard/products" element={<Product />} />
+          <Route path="Admindashboard/users" element={<Users />} />
         </Route>
         <Route path="/Shop" element={<Shop />}></Route>
         <Route path="/Forgot" element={<Forgot />}></Route>

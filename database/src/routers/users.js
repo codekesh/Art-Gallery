@@ -37,9 +37,9 @@ router.post('/users', async (req, res) => {
             message: "Registered successfully",
             user
         })
-    } catch (e) {
-        console.log(e);
-        res.status(400).send(e);
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error);
     }
 })
 
@@ -139,12 +139,6 @@ router.post('/login', async (req, res) => {
     }
 })
 
-// // protected test
-// router.get('/test', requireSignIn, isAdmin, (req, res) => {
-//     res.status(200).send({ ok: true })
-// })
-
-
 // protected user route
 router.get('/user-auth', requireSignIn, (req, res) => {
     res.status(200).send({ ok: true })
@@ -178,9 +172,7 @@ router.post('/forgotPassword', async (req, res) => {
         }
 
         // If the answer is correct, update the password
-        console.log(newpassword)
         const hashed = await hashPassword(newpassword);
-        console.log(hashed)
         await Users.findByIdAndUpdate(user._id, { password: hashed });
 
         res.status(200).send({

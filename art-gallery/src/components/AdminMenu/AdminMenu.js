@@ -27,6 +27,13 @@ const AdminMenu = () => {
                                 </ListItemButton>
                             </ListItem>
                         </NavLink>
+                        <NavLink to="/Admin/Admindashboard/products">
+                            <ListItem disablePadding>
+                                <ListItemButton>
+                                    <ListItemText primary="Products" />
+                                </ListItemButton>
+                            </ListItem>
+                        </NavLink>
                         <NavLink to="/Admin/Admindashboard/users">
                             <ListItem disablePadding>
                                 <ListItemButton>

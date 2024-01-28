@@ -62,34 +62,25 @@ router.get('/product', async (req, res) => {
         console.log(error);
         res.status(500).send({
             success: false,
-            message: "Erorr in getting products",
+            message: "Error in getting products",
             error: error.message,
         });
     }
 })
 
-router.get('/product/:id', async (req, res) => {
+router.get('/product/:slug', async (req, res) => {
     try {
-        const _id = req.params.id;
-        const productData = await Product.findById(_id).select("-photo").populate("category");;
-        if (!productData) {
-            res.send(404).send({
-                success: false,
-                message: 'Not found'
-            });
-        }
-        else {
-            res.status(200).send({
-                success: true,
-                message: "Single Product Fetched",
-                productData,
-            });
-        }
+        const productData = await Product.findOne({ slug: req.params.slug }).select("-photo").populate("category");
+        res.status(200).send({
+            success: true,
+            message: "Single Product Fetched",
+            productData,
+        });
     } catch (error) {
         console.log(error);
         res.status(500).send({
             success: false,
-            message: "Eror while getitng single product",
+            message: "Error while getting single product",
             error,
         });
     }
@@ -141,7 +132,6 @@ router.put('/update-product/:id', requireSignIn, isAdmin, formidable(), async (r
 router.get("/product-photo/:id", async (req, res) => {
     try {
         const product = await Product.findById(req.params.id).select("photo");
-        console.log(product)
         if (product.photo.data) {
             res.set("Content-type", product.photo.contentType);
             return res.status(200).send(product.photo.data);
@@ -159,7 +149,6 @@ router.get("/product-photo/:id", async (req, res) => {
 router.delete("/delete-product/:id", requireSignIn, isAdmin, async (req, res) => {
     try {
         const product = await Product.findByIdAndDelete(req.params.id).select("-photo");
-        console.log(product)
         res.status(200).send({
             success: true,
             message: "Product Deleted successfully",
