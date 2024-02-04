@@ -7,14 +7,15 @@ import './Admindashboard.css'
 
 const Admindashboard = () => {
   const [auth] = useAuth()
+
   return (
     <>
       <div className='adminDashboardHeader'>
         <AdminMenu />
         <div className='adminDetailsHeader'>
-          <h2>Admin Name: {auth?.user?.name}</h2>
-          <h2>Admin Email: {auth?.user?.email}</h2>
-          <h2>Admin Contact: {auth?.user?.contact}</h2>
+          <span>Name: {auth?.user?.name}</span>
+          <span>Email: {auth?.user?.email}</span>
+          <span>Contact: {auth?.user?.contact}</span>
         </div>
       </div>
       <Footer />

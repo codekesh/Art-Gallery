@@ -10,6 +10,26 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { Button, Card, CardContent, TextField, Typography, styled } from '@mui/material'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
+const StyleCard = styled(Card)({
+    width: '30%',
+    height: '700px',
+    boxShadow: '0px 0px 15px 0px grey'
+})
+
+const StyledTextField = styled(TextField)({
+    width: '100%',
+    marginTop: '20px'
+})
+
+const StyledBox = styled(Box)({
+    height: '50px',
+    margin: '60px auto',
+    display: 'flex',
+    flexDirection: 'column'
+})
 
 const UpdateProduct = () => {
     const navigate = useNavigate();
@@ -40,12 +60,7 @@ const UpdateProduct = () => {
             console.log(error);
         }
     };
-    useEffect(() => {
-        getSingleProduct();
-        //eslint-disable-next-line
-    }, []);
 
-    //get all category
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get('http://localhost:8080/category')
@@ -59,8 +74,9 @@ const UpdateProduct = () => {
     }
 
     useEffect(() => {
-        getAllCategory();
-    }, [])
+        getSingleProduct();
+        getAllCategory()
+    }, []);
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -104,75 +120,122 @@ const UpdateProduct = () => {
         }
     };
 
+    const handleFileChange = (e) => {
+        setPhoto(e.target.files[0]);
+    };
+
     return (
         <>
             <div className='adminDashboardHeader'>
                 <AdminMenu />
-                <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={category}
-                            label="Category"
-                            onChange={(event) => { setCategory(event.target.value) }}
+                <StyleCard sx={{ my: 7, ml: 10 }}>
+                    <CardContent>
+                        <Typography variant="h5" align='center' sx={{ my: 2 }}>
+                            Update Products
+                        </Typography>
+                        <Box sx={{ maxWidth: '100%' }}>
+                            <FormControl fullWidth>
+                                <InputLabel id="category-label">Category</InputLabel>
+                                <Select
+                                    labelId="category-label"
+                                    id="category-select"
+                                    value={category}
+                                    label="Category"
+                                    onChange={(event) => { setCategory(event.target.value) }}
+                                >
+                                    {categories?.map((c) => (
+                                        <MenuItem key={c._id} value={c._id}>{c.name}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+                        <div>
+                            <StyledTextField
+                                label="Name"
+                                value={name}
+                                placeholder='Write a name'
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                            <StyledTextField
+                                label="Description"
+                                value={description}
+                                placeholder='Write a description'
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                            <StyledTextField
+                                label="Price"
+                                value={price}
+                                placeholder='Write a price'
+                                onChange={(e) => setPrice(e.target.value)}
+                            />
+                            <StyledTextField
+                                label="Quantity"
+                                value={quantity}
+                                placeholder='Write a quantity'
+                                onChange={(e) => setQuantity(e.target.value)}
+                            />
+                            <StyledTextField
+                                label="Artists"
+                                value={artists}
+                                placeholder='Write artists'
+                                onChange={(e) => setArtists(e.target.value)}
+                            />
+                            <Box sx={{ maxWidth: '100%', my: 2 }}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="shipping-label">Shipping</InputLabel>
+                                    <Select
+                                        labelId="shipping-label"
+                                        id="shipping-select"
+                                        value={shipping}
+                                        label="Select Shipping"
+                                        onChange={(event) => { setShipping(event.target.value) }}
+                                    >
+                                        <MenuItem value="0">0</MenuItem>
+                                        <MenuItem value="1">1</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                            <div style={{ display: 'flex', marginTop: '30px' }}>
+                                <Button variant="contained" sx={{ display: 'block', margin: 'auto' }} onClick={handleUpdate}>
+                                    Update PRODUCT
+                                </Button>
+                                <Button variant="contained" sx={{ display: 'block', margin: 'auto' }} onClick={handleDelete}>
+                                    Delete PRODUCT
+                                </Button>
+                            </div>
+                        </div>
+                    </CardContent>
+                </StyleCard>
+                <StyledBox mb={2}>
+                    <input
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        id="photo-upload"
+                        type="file"
+                        onChange={handleFileChange}
+                    />
+                    <label htmlFor="photo-upload">
+                        <Button
+                            variant="outlined"
+                            component="span"
+                            startIcon={<CloudUploadIcon />}
                         >
-                            {categories?.map((c) => (
-                                <MenuItem key={c._id} value={c._id}>{c.name}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Box>
-                <div>
-                    <label>
-                        {photo ? photo.name : "Upload Photo"}
-                        <input type="file" name="photo" accept='image/*' onChange={(e) => { setPhoto(e.target.files[0]) }} hidden />
+                            {photo ? 'Change Photo' : 'Upload Photo'}
+                        </Button>
                     </label>
-                </div>
-                <div>
-                    {photo ? (
-                        <div>
-                            <img src={URL.createObjectURL(photo)} alt="proDuct_photo" height={'200px'} />
-                        </div>
-                    ) : (
-                        <div>
-                            <img src={`/product-photo/${id}`} alt="proDuct_photo" height={'200px'} />
-                        </div>
-                    )}
-                </div>
-                <div>
-                    <input type="text" value={name} placeholder='write a name' className='form-control' onChange={(e) => setName(e.target.value)} />
-                    <input type="text" value={description} placeholder='write a description' className='form-control' onChange={(e) => setDescription(e.target.value)} />
-                    <input type="text" value={price} placeholder='write a price' className='form-control' onChange={(e) => setPrice(e.target.value)} />
-                    <input type="text" value={quantity} placeholder='write a quantity' className='form-control' onChange={(e) => setQuantity(e.target.value)} />
-                    <input type="text" value={artists} placeholder='write a artists' className='form-control' onChange={(e) => setArtists(e.target.value)} />
-                    <Box sx={{ minWidth: 120 }}>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Shipping</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={shipping}
-                                label="Select Shipping"
-                                onChange={(event) => { setShipping(event.target.value) }}
-                            >
-                                <MenuItem value="0">0</MenuItem>
-                                <MenuItem value="1">1</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
+                </StyledBox>
+                {photo && (
                     <div>
-                        <button onClick={handleUpdate}>
-                            Update Product
-                        </button>
+                        <Typography variant="subtitle1" gutterBottom>
+                            {photo.name}
+                        </Typography>
+                        <img
+                            src={URL.createObjectURL(photo)}
+                            alt="Product"
+                            height={'200px'}
+                        />
                     </div>
-                    <div>
-                        <button onClick={handleDelete}>
-                            Delete Product
-                        </button>
-                    </div>
-                </div>
+                )}
             </div>
             <Footer />
             <Copyright />

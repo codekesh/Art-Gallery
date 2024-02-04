@@ -3,20 +3,33 @@ import Footer from '../../../components/Footer/Footer'
 import Copyright from '../../../components/Copyright/Copyright'
 import AdminMenu from '../../../components/AdminMenu/AdminMenu'
 import toast from 'react-hot-toast'
-import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import axios from 'axios'
-import { Button } from '@mui/material'
+import { Box, Button, Fade, Modal, Typography } from '@mui/material'
 import CategoryForm from '../../../components/CategoryForm/CategoryForm'
-import Modal from 'antd/es/modal/Modal'
+import './CreateCategory.css'
+import { FixedSizeList } from 'react-window';
+import Backdrop from '@mui/material/Backdrop';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+  borderRadius: '20px'
+};
 
 const CreateCategory = () => {
   const [categories, setCategories] = useState([])
   const [name, setName] = useState('')
-  const [visible, setVisible] = useState('false')
   const [selected, setSelected] = useState('null')
   const [updatedName, setUpdatedName] = useState('')
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -57,7 +70,7 @@ const CreateCategory = () => {
       if (data.success) {
         toast.success(`${updatedName} is updated`)
         setSelected(null)
-        setVisible(false)
+        setOpen(false)
         setUpdatedName("")
         getAllCategory()
       } else {
@@ -73,8 +86,8 @@ const CreateCategory = () => {
       const { data } = await axios.delete(
         `/delete-category/${id}`
       );
-      if (data.success) {
-        toast.success(`category is deleted`);
+      if (data.name) {
+        toast.success(`Category is deleted`);
         getAllCategory();
       } else {
         toast.error(data.message);
@@ -83,29 +96,59 @@ const CreateCategory = () => {
       toast.error("Something went wrong");
     }
   };
+
+  const handleEditClick = ((categories) => {
+    setOpen(true);
+    setSelected(categories)
+    setUpdatedName(categories.name);
+  })
+
+  const handleClose = () => setOpen(false);
+
+  const Row = ({ index, style }) => (
+    <ListItem style={style} key={categories[index]._id}>
+      <ListItemText primary={categories[index].name} />
+      <Button variant="contained" sx={{ mr: 2 }} onClick={() => { handleEditClick(categories[index]) }}>Edit</Button>
+      <Button variant="contained" onClick={() => { handleDelete(categories[index]._id) }}>Delete</Button>
+    </ListItem>
+  );
+
   return (
     <>
       <div className='adminDashboardHeader'>
         <AdminMenu />
-        <CategoryForm handleSubmit={handleSubmit} category={name} setCategory={setName} />
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          {categories?.map((c) => (
-            <ListItem
-              key={c._id}
-              disableGutters
-              secondaryAction={
-                <>
-                  <Button variant="contained" onClick={() => { setVisible(true); setUpdatedName(c.name); setSelected(c) }}>Edit</Button>
-                  <Button variant="contained" onClick={() => { handleDelete(c._id) }}>Delete</Button>
-                </>
-              }
-            >
-              <ListItemText primary={c.name} />
-            </ListItem>
-          ))}
-        </List>
-        <Modal onCancel={() => setVisible(false)} footer={null} open={visible}>
-          <CategoryForm category={updatedName} setCategory={setUpdatedName} handleSubmit={handleUpdate} />
+        <CategoryForm headline="Create New Category" handleSubmit={handleSubmit} category={name} setCategory={setName} buttonLine="Add Category" />
+        <Box sx={{ width: 410, height: 420, maxWidth: 360, my: 7, bgcolor: 'background.paper', borderRadius: '20px', boxShadow: '0px 0px 15px 0px grey' }}>
+          <Typography variant='h5' align='center' sx={{ my: 2 }}>
+            Show Category
+          </Typography>
+          <FixedSizeList
+            height={350}
+            width={350}
+            itemSize={46}
+            itemCount={categories.length}
+          >
+            {Row}
+          </FixedSizeList>
+        </Box>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <CategoryForm headline="Edit Category" category={updatedName} setCategory={setUpdatedName} handleSubmit={handleUpdate} styleEditForm={true} buttonLine="Update Category" />
+            </Box>
+          </Fade>
         </Modal>
       </div>
       <Footer />

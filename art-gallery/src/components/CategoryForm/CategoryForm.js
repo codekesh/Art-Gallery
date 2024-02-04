@@ -1,11 +1,20 @@
 import React from 'react';
-import { TextField, Button, Grid, Container } from '@mui/material';
+import { TextField, Button, Grid, Container, Typography } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 
-const CategoryForm = ({ handleSubmit, category, setCategory }) => {
+const styleCategoryForm = {
+    margin: 'auto 7%',
+    padding: '30px',
+    boxShadow: '0px 0px 15px 0px black',
+    borderRadius: '20px',
+    width: '22%'
+}
+
+const CategoryForm = ({ headline, handleSubmit, category, setCategory, styleEditForm, buttonLine }) => {
     return (
         <>
-            <Container component="main" maxWidth="xs" className='signUp'>
+            <Container style={styleEditForm ? {} : styleCategoryForm} component="main" maxWidth="xs">
+                <Typography variant='h6' align="center" style={{ margin: 'auto auto 20px auto' }}>{headline}</Typography>
                 <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={12}>
@@ -18,8 +27,8 @@ const CategoryForm = ({ handleSubmit, category, setCategory }) => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Button type="submit" fullWidth variant="contained" color="primary">
-                                Add
+                            <Button style={{ display: 'block', margin: 'auto' }} type="submit" variant="contained" color="primary">
+                                {buttonLine}
                             </Button>
                         </Grid>
                     </Grid>
