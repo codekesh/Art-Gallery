@@ -13,11 +13,12 @@
 .navbar img {
     height: 70px;
     border-radius: 100%;
+    margin-right: 50px;
 }
 
 .nav-title {
     position: relative;
-    left: 35%;
+    left: 20%;
 }
 
 .nav-link {

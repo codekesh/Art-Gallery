@@ -22,6 +22,7 @@ import Profile from './Pages/User/Profile/Profile.js'
 import Orders from './Pages/User/Orders/Orders.js'
 import Product from './Pages/Admin/Product/Product.js'
 import UpdateProduct from './Pages/Admin/UpdateProduct/UpdateProduct.js'
+import Search from './Pages/Search/Search.js'
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/search" element={<Search />}></Route>
         <Route path="/User" element={<Private />}>
           <Route path="Userdashboard" element={<Userdashboard />} />
           <Route path="Userdashboard/profile" element={<Profile />} />
@@ -44,7 +46,7 @@ const App = () => {
         </Route>
         <Route path="/Shop" element={<Shop />}></Route>
         <Route path="/Forgot" element={<Forgot />}></Route>
-        <Route path="/Productpage" element={<Productpage />}></Route>
+        <Route path="/product/:slug" element={<Productpage />}></Route>
         <Route path="/Event" element={<Event />}></Route>
         <Route path="/News" element={<News />}></Route>
         <Route path="/About" element={<About />}></Route>

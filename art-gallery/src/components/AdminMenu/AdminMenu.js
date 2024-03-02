@@ -19,7 +19,7 @@ const StyledCard = styled(Card)({
 })
 
 const StyledNavLink = styled(NavLink)({
-    color: 'green',
+    color: 'black',
     textDecoration: 'none',
 })
 

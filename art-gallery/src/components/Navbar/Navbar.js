@@ -3,6 +3,7 @@ import './Navbar.css'
 import { NavLink } from "react-router-dom"
 import { Button } from '@mui/material'
 import { useAuth } from '../../context/AuthProvider'
+import SearchBar from '../SearchBar/SearchBar'
 
 const Navbar = () => {
     const [auth, setAuth] = useAuth();
@@ -21,6 +22,7 @@ const Navbar = () => {
             <NavLink to="/">
                 <img src={logo} alt="logo" />
             </NavLink>
+            <SearchBar />
             <div className="nav-title">
                 <NavLink className="nav-link" to="/">Home</NavLink>
                 <NavLink className="nav-link" to="/Shop">Shops</NavLink>

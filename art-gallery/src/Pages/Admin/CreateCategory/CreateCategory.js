@@ -109,7 +109,7 @@ const CreateCategory = () => {
     <ListItem style={style} key={categories[index]._id}>
       <ListItemText primary={categories[index].name} />
       <Button variant="contained" sx={{ mr: 2 }} onClick={() => { handleEditClick(categories[index]) }}>Edit</Button>
-      <Button variant="contained" onClick={() => { handleDelete(categories[index]._id) }}>Delete</Button>
+      <Button variant="contained" color='error' onClick={() => { handleDelete(categories[index]._id) }}>Delete</Button>
     </ListItem>
   );
 
