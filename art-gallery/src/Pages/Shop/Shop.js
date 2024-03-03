@@ -161,7 +161,7 @@ const Shop = () => {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small" variant='contained' onClick={() => navigate(`./product/${p.slug}`)}>More Details</Button>
+                                        <Button size="small" variant='contained' onClick={() => navigate(`/product/${p.slug}`)}>More Details</Button>
                                         <Button size="small" variant='contained'>Add To Cart</Button>
                                     </CardActions>
                                 </Card>
