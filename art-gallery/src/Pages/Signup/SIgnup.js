@@ -26,15 +26,15 @@ const Signup = () => {
     event.preventDefault();
     try {
       const res = await axios.post('/users', {
-        name,
         dob,
+        name,
+        email,
+        answer,
         gender,
         contact,
-        email,
         address,
         username,
         password,
-        answer
       });
       if (res.data.success) {
         toast.success(res.data.message);

@@ -7,7 +7,6 @@ import './Userdashboard.css'
 
 const Userdashboard = () => {
   const [auth] = useAuth()
-  console.log(auth?.user?.name)
   return (
     <>
       <div className='userdashboardHeader'>

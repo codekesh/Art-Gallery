@@ -37,11 +37,11 @@ const Productpage = () => {
     return (
         <>
             <div>
-                {product && (
+                {product._id && (
                     <>
                         <img
-                            src={`/product-photo/${product._id}`}
-                            alt={product.name}
+                            src={`/product-photo/${product?._id}`}
+                            alt={product?.name}
                             height="300"
                             width={"350px"}
                         />

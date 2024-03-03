@@ -25,6 +25,7 @@ import UpdateProduct from './Pages/Admin/UpdateProduct/UpdateProduct.js'
 import Search from './Pages/Search/Search.js'
 import Categories from './Pages/Categories/Categories.js'
 import CategoryProduct from './Pages/CategoryProduct/CategoryProduct.js'
+import Cart from './Pages/Cart/Cart.js'
 
 const App = () => {
   return (
@@ -54,6 +55,7 @@ const App = () => {
         <Route path="/Event" element={<Event />}></Route>
         <Route path="/News" element={<News />}></Route>
         <Route path="/About" element={<About />}></Route>
+        <Route path="/Cart" element={<Cart />}></Route>
         <Route path="/Login" element={<Login />}></Route>
         <Route path="/Signup" element={<Signup />}></Route>
       </Routes>

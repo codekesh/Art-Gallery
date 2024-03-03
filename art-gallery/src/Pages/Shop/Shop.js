@@ -6,9 +6,12 @@ import { Box, Button, Card, CardActions, CardContent, CardMedia, Checkbox, FormC
 import axios from 'axios'
 import { Prices } from '../../components/Prices/Prices'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { useCart } from '../../context/CartProvider'
 
 const Shop = () => {
     const navigate = useNavigate()
+    const [cart, setCart] = useCart();
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [checked, setChecked] = useState([]);
@@ -100,7 +103,7 @@ const Shop = () => {
             console.log(error);
         }
     };
-
+    
     return (
         <>
             <div style={{ display: 'flex' }}>
@@ -162,7 +165,11 @@ const Shop = () => {
                                     </CardContent>
                                     <CardActions>
                                         <Button size="small" variant='contained' onClick={() => navigate(`/product/${p.slug}`)}>More Details</Button>
-                                        <Button size="small" variant='contained'>Add To Cart</Button>
+                                        <Button size="small" variant='contained' onClick={() => {
+                                            setCart([...cart, p])
+                                            localStorage.setItem('cart', JSON.stringify([...cart, p]))
+                                            toast.success('Item Added to cart')
+                                        }}>Add To Cart</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>

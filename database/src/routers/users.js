@@ -189,5 +189,4 @@ router.post('/forgotPassword', async (req, res) => {
     }
 });
 
-
 module.exports = router;
