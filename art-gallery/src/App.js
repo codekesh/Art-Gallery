@@ -23,6 +23,8 @@ import Orders from './Pages/User/Orders/Orders.js'
 import Product from './Pages/Admin/Product/Product.js'
 import UpdateProduct from './Pages/Admin/UpdateProduct/UpdateProduct.js'
 import Search from './Pages/Search/Search.js'
+import Categories from './Pages/Categories/Categories.js'
+import CategoryProduct from './Pages/CategoryProduct/CategoryProduct.js'
 
 const App = () => {
   return (
@@ -45,8 +47,10 @@ const App = () => {
           <Route path="Admindashboard/users" element={<Users />} />
         </Route>
         <Route path="/Shop" element={<Shop />}></Route>
+        <Route path="/categories" element={<Categories />}></Route>
         <Route path="/Forgot" element={<Forgot />}></Route>
         <Route path="/product/:slug" element={<Productpage />}></Route>
+        <Route path="/categories/:slug" element={<CategoryProduct />}></Route>
         <Route path="/Event" element={<Event />}></Route>
         <Route path="/News" element={<News />}></Route>
         <Route path="/About" element={<About />}></Route>

@@ -4,7 +4,8 @@ const { requireSignIn, isAdmin } = require('../middlewares/authMiddlewares');
 const { default: slugify } = require('slugify');
 const router = new express.Router();
 const formidable = require('express-formidable')
-const fs = require('fs')
+const fs = require('fs');
+const Category = require('../models/category');
 
 router.post('/create-product', requireSignIn, isAdmin, formidable(), async (req, res) => {
     try {
@@ -250,7 +251,7 @@ router.get("/search/:keyword", async (req, res) => {
 
 router.get('/related-product/:pid/:cid', async (req, res) => {
     try {
-        const {pid, cid} = req.params
+        const { pid, cid } = req.params
         const products = await Product.find({
             category: cid,
             _id: { $ne: pid }
@@ -265,6 +266,24 @@ router.get('/related-product/:pid/:cid', async (req, res) => {
             success: false,
             message: 'error while getting related product',
             error
+        })
+    }
+})
+
+router.get('/product-category/:slug', async (req, res) => {
+    try {
+        const category = await Category.findOne({ slug: req.params.slug })
+        const products = await Product.find({ category }).select("-photo").populate('category')
+        res.status(200).send({
+            success: true,
+            category,
+            products
+        })
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            error,
+            message: "Error while getting products"
         })
     }
 })
