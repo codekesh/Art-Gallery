@@ -1,58 +1,99 @@
-import React, { useEffect, useState } from 'react'
-import Footer from '../../../components/Footer/Footer'
-import Copyright from '../../../components/Copyright/Copyright'
-import UserMenu from '../../../components/UserMenu/UserMenu'
-import { useAuth } from '../../../context/AuthProvider'
-import { TextField, Button, FormControlLabel, Grid, Typography, Container, FormControl, Radio, FormLabel, RadioGroup } from '@mui/material';
-import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import Footer from "../../../components/Footer/Footer";
+import Copyright from "../../../components/Copyright/Copyright";
+import UserMenu from "../../../components/UserMenu/UserMenu";
+import { useAuth } from "../../../context/AuthProvider";
+import {
+  TextField,
+  Button,
+  FormControlLabel,
+  Grid,
+  Typography,
+  Container,
+  FormControl,
+  Radio,
+  FormLabel,
+  RadioGroup,
+} from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 const Profile = () => {
-  const [auth, setAuth] = useAuth()
-  const [dob, setDob] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [gender, setGender] = useState('')
-  const [answer, setAnswer] = useState('')
-  const [contact, setContact] = useState('')
-  const [address, setAddress] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [confipass, setConfipass] = useState('')
+  const [auth, setAuth] = useAuth();
+  const [dob, setDob] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [contact, setContact] = useState("");
+  const [address, setAddress] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confipass, setConfipass] = useState("");
 
   useEffect(() => {
-    const { name, dob, gender, contact, email, address, username, password, answer } = auth?.user
-    setDob(dob)
-    setName(name)
-    setEmail(email)
-    setGender(gender)
-    setAnswer(answer)
-    setContact(contact)
-    setAddress(address)
-    setUsername(username)
-    setPassword(password)
-  }, [auth?.user])
+    const {
+      name,
+      dob,
+      gender,
+      contact,
+      email,
+      address,
+      username,
+      password,
+      answer,
+    } = auth?.user;
+    setDob(dob);
+    setName(name);
+    setEmail(email);
+    setGender(gender);
+    setAnswer(answer);
+    setContact(contact);
+    setAddress(address);
+    setUsername(username);
+    setPassword(password);
+  }, [auth?.user]);
 
-  console.log(auth?.user)
+  console.log(auth?.user);
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.post('/users', {
-        name, dob, gender, contact, email, address, username, password, answer
+      const res = await axios.post("/users", {
+        name,
+        dob,
+        gender,
+        contact,
+        email,
+        address,
+        username,
+        password,
+        answer,
       });
     } catch (error) {
       console.log(error);
-      toast.error('Something went wrong');
+      toast.error("Something went wrong");
     }
   };
 
   return (
     <>
-      <div className='userdashboardHeader'>
+      <div className="userdashboardHeader">
         <UserMenu />
-        <Container component="main" maxWidth="xs" className='signUp'>
-          <Typography variant="h5" align="center" style={{ marginBottom: "10px" }}>Registration</Typography>
-          <Typography variant="h6" align="center" style={{ lineHeight: "1.2", marginBottom: "12px" }}>Wanna Join Artsverse! Then, create your Account</Typography>
+        <Container component="main" maxWidth="xs" className="signUp">
+          <Typography
+            variant="h5"
+            align="center"
+            style={{ marginBottom: "10px" }}
+          >
+            Registration
+          </Typography>
+          <Typography
+            variant="h6"
+            align="center"
+            style={{ lineHeight: "1.2", marginBottom: "12px" }}
+          >
+            Wanna Join Artsverse! Then, create your Account
+          </Typography>
 
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
@@ -95,9 +136,21 @@ const Profile = () => {
                     onChange={(e) => setGender(e.target.value)}
                     row
                   >
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                    <FormControlLabel
+                      value="male"
+                      control={<Radio />}
+                      label="Male"
+                    />
+                    <FormControlLabel
+                      value="female"
+                      control={<Radio />}
+                      label="Female"
+                    />
+                    <FormControlLabel
+                      value="other"
+                      control={<Radio />}
+                      label="Other"
+                    />
                   </RadioGroup>
                 </FormControl>
               </Grid>
@@ -107,7 +160,7 @@ const Profile = () => {
                 <TextField
                   label="Contact"
                   name="contact"
-                  type='number'
+                  type="number"
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
                   fullWidth
@@ -120,7 +173,7 @@ const Profile = () => {
                 <TextField
                   label="Email"
                   name="email"
-                  type='email'
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   fullWidth
@@ -133,7 +186,7 @@ const Profile = () => {
                 <TextField
                   label="Address"
                   name="address"
-                  type='text'
+                  type="text"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   fullWidth
@@ -147,7 +200,7 @@ const Profile = () => {
                   label="Username"
                   name="username"
                   value={username}
-                  type='type'
+                  type="type"
                   onChange={(e) => setUsername(e.target.value)}
                   fullWidth
                   required
@@ -159,7 +212,7 @@ const Profile = () => {
                 <TextField
                   label="New Password"
                   name="password"
-                  type='password'
+                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   fullWidth
@@ -172,7 +225,7 @@ const Profile = () => {
                 <TextField
                   label="Confirm Password"
                   name="confipass"
-                  type='password'
+                  type="password"
                   value={confipass}
                   onChange={(e) => setConfipass(e.target.value)}
                   fullWidth
@@ -184,7 +237,7 @@ const Profile = () => {
                 <TextField
                   label="What is your first born city name?"
                   name="answer"
-                  type='text'
+                  type="text"
                   value={answer}
                   onChange={(e) => setAnswer(e.target.value)}
                   fullWidth
@@ -192,7 +245,14 @@ const Profile = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button type="submit" fullWidth variant="contained" color="primary">Update</Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                >
+                  Update
+                </Button>
               </Grid>
             </Grid>
           </form>
@@ -201,7 +261,7 @@ const Profile = () => {
       <Footer />
       <Copyright />
     </>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

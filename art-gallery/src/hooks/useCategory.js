@@ -1,22 +1,22 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const useCategory = () => {
-    const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
 
-    const getCategories = async () => {
-        try {
-            const { data } = await axios.get('/category')
-            setCategories(data)
-        } catch (error) {
-            console.log(error);
-        }
+  const getCategories = async () => {
+    try {
+      const { data } = await axios.get("/category");
+      setCategories(data);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    useEffect(() => {
-        getCategories();
-    }, [])
-    return categories
-}
+  useEffect(() => {
+    getCategories();
+  }, []);
+  return categories;
+};
 
-export default useCategory
+export default useCategory;

@@ -1,6 +1,6 @@
-import React from 'react'
-import Footer from '../../components/Footer/Footer'
-import Copyright from '../../components/Copyright/Copyright'
+import React from "react";
+import Footer from "../../components/Footer/Footer";
+import Copyright from "../../components/Copyright/Copyright";
 
 const News = () => {
   return (
@@ -8,7 +8,7 @@ const News = () => {
       <Footer />
       <Copyright />
     </div>
-  )
-}
+  );
+};
 
-export default News
+export default News;

@@ -1,31 +1,41 @@
-import React, { useState } from 'react';
-import './Signup.css'
-import Footer from '../../components/Footer/Footer'
-import Copyright from '../../components/Copyright/Copyright'
-import { TextField, Button, FormControlLabel, Grid, Typography, Container, FormControl, Radio, FormLabel, RadioGroup } from '@mui/material';
-import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import "./Signup.css";
+import Footer from "../../components/Footer/Footer";
+import Copyright from "../../components/Copyright/Copyright";
+import {
+  TextField,
+  Button,
+  FormControlLabel,
+  Grid,
+  Typography,
+  Container,
+  FormControl,
+  Radio,
+  FormLabel,
+  RadioGroup,
+} from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-
-  const [dob, setDob] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [gender, setGender] = useState('')
-  const [answer, setAnswer] = useState('')
-  const [contact, setContact] = useState('')
-  const [address, setAddress] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [confipass, setConfipass] = useState('')
+  const [dob, setDob] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [contact, setContact] = useState("");
+  const [address, setAddress] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confipass, setConfipass] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.post('/users', {
+      const res = await axios.post("/users", {
         dob,
         name,
         email,
@@ -39,21 +49,32 @@ const Signup = () => {
       if (res.data.success) {
         toast.success(res.data.message);
         navigate("/Login");
-      }
-      else {
+      } else {
         toast.error(res.data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error('Something went wrong');
+      toast.error("Something went wrong");
     }
   };
 
   return (
     <>
-      <Container component="main" maxWidth="xs" className='signUp'>
-        <Typography variant="h5" align="center" style={{ marginBottom: "10px" }}>Registration</Typography>
-        <Typography variant="h6" align="center" style={{ lineHeight: "1.2", marginBottom: "12px" }}>Wanna Join Artsverse! Then, create your Account</Typography>
+      <Container component="main" maxWidth="xs" className="signUp">
+        <Typography
+          variant="h5"
+          align="center"
+          style={{ marginBottom: "10px" }}
+        >
+          Registration
+        </Typography>
+        <Typography
+          variant="h6"
+          align="center"
+          style={{ lineHeight: "1.2", marginBottom: "12px" }}
+        >
+          Wanna Join Artsverse! Then, create your Account
+        </Typography>
 
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
@@ -96,9 +117,21 @@ const Signup = () => {
                   onChange={(e) => setGender(e.target.value)}
                   row
                 >
-                  <FormControlLabel value="male" control={<Radio />} label="Male" />
-                  <FormControlLabel value="female" control={<Radio />} label="Female" />
-                  <FormControlLabel value="other" control={<Radio />} label="Other" />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio />}
+                    label="Other"
+                  />
                 </RadioGroup>
               </FormControl>
             </Grid>
@@ -108,7 +141,7 @@ const Signup = () => {
               <TextField
                 label="Contact"
                 name="contact"
-                type='number'
+                type="number"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
                 fullWidth
@@ -121,7 +154,7 @@ const Signup = () => {
               <TextField
                 label="Email"
                 name="email"
-                type='email'
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 fullWidth
@@ -134,7 +167,7 @@ const Signup = () => {
               <TextField
                 label="Address"
                 name="address"
-                type='text'
+                type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 fullWidth
@@ -148,7 +181,7 @@ const Signup = () => {
                 label="Username"
                 name="username"
                 value={username}
-                type='type'
+                type="type"
                 onChange={(e) => setUsername(e.target.value)}
                 fullWidth
                 required
@@ -160,7 +193,7 @@ const Signup = () => {
               <TextField
                 label="New Password"
                 name="password"
-                type='password'
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 fullWidth
@@ -173,7 +206,7 @@ const Signup = () => {
               <TextField
                 label="Confirm Password"
                 name="confipass"
-                type='password'
+                type="password"
                 value={confipass}
                 onChange={(e) => setConfipass(e.target.value)}
                 fullWidth
@@ -185,7 +218,7 @@ const Signup = () => {
               <TextField
                 label="What is your first born city name?"
                 name="answer"
-                type='text'
+                type="text"
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 fullWidth
@@ -193,7 +226,14 @@ const Signup = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button type="submit" fullWidth variant="contained" color="primary">Sign up</Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
+                Sign up
+              </Button>
             </Grid>
           </Grid>
         </form>

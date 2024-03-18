@@ -1,6 +1,9 @@
-const mongoose = require('mongoose')
-mongoose.connect("mongodb://127.0.0.1:27017/artGallery").then(() => {
+const mongoose = require("mongoose");
+mongoose
+  .connect("mongodb://127.0.0.1:27017/artGallery")
+  .then(() => {
     console.log("connection is successful");
-}).catch((e) => {
+  })
+  .catch((e) => {
     console.log("No connection");
-})
+  });
